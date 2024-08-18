@@ -86,3 +86,18 @@ Basic Flow Validation
 1. Use ***class-transformer*** to turn the body  into an instance of the DTO class
 1. Use ***class-validator*** to validate the instance
 1. If there are validation errors, responsd immediately, otherwise provide body to request handler
+
+### `Service`
+
+- Its a class
+- Place to put any business logic
+- Uses one or moro repositories to find or store data
+- Some calculation
+
+### `Repository`
+
+- Its a class
+- Place to put storage-relate logic
+- Usually ends up being a `TypeORM` entity / mongoose schema / something similar
+- Interact with database
+- Write information to a file

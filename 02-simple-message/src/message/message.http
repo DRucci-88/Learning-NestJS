@@ -6,7 +6,7 @@ POST http://localhost:3001/message
 Content-Type: application/json
 
 {
-    "content": "hi there"
+    "content": "Moshi Moshi"
 }
 
 ### Create a new message but error return
