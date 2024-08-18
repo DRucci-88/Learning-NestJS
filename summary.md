@@ -2,7 +2,7 @@
 
 ## Basic Knowledge
 
-### Basic flow
+### Basic flow of Nest
 
 1. Request coming from client
 1. `Pipe` Validate data contained in the request
@@ -17,7 +17,7 @@
 - `Controller` Handles incoming request
 - `Service` Handles data access and business logic
 - `Modules` Groups together code
-- `Pipe` Validates incoming data
+- `Pipe` Validates incoming data before reaches a route handler
 - `Filter` Handles errors that occur during request handling
 - `Guard` Handles authentication
 - `Interceptors` Adds extra logic to incoming request or outgoing responses
@@ -64,3 +64,25 @@ explanation decorator
 - validate=true `@Query()`
 - Host and Content-Type `@Headers()`
 - Json body `@Body()`
+
+### Automatic Validation
+
+1. Tell Nest to use global validation
+1. Create a class that describes the different properties that the request body should have `Data Transfer Object (DTO)`.
+1. Add validation rules to the class
+1. Apply that class to the request handler
+
+Data Transfer Object (DTO)
+
+- Carries data between two places
+- Class that a very detail properties and staticly type
+- Very clear description what form of data look like
+- Turn a plain JSON into a class
+
+Basic Flow Validation
+
+1. Request coming from client
+1. That request will be validated using `Pipe`
+1. Use ***class-transformer*** to turn the body  into an instance of the DTO class
+1. Use ***class-validator*** to validate the instance
+1. If there are validation errors, responsd immediately, otherwise provide body to request handler

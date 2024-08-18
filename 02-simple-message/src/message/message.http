@@ -9,5 +9,13 @@ Content-Type: application/json
     "content": "hi there"
 }
 
+### Create a new message but error return
+POST http://localhost:3001/message
+Content-Type: application/json
+
+{
+    "content": 123
+}
+
 ### Get a particular message
 GET http://localhost:3001/message/3
