@@ -93,6 +93,7 @@ Basic Flow Validation
 - Place to put any business logic
 - Uses one or moro repositories to find or store data
 - Some calculation
+- `@Injectable`
 
 ### `Repository`
 
@@ -101,3 +102,21 @@ Basic Flow Validation
 - Usually ends up being a `TypeORM` entity / mongoose schema / something similar
 - Interact with database
 - Write information to a file
+- `@Injectable`
+
+### Inversion of Control Principle
+
+Classes should not create instances of its dependencies on its own
+
+### Dependency Injection Container Flow
+
+1. At startup, register all classes with the container
+1. Container will figure out what each dependency each class has
+1. We then ask the container to create an instance of a class for us
+1. Container creates all required dependencies and gives us the instance
+1. Container will hold onto the created dependency instances and reuse them if needed
+
+Explanation
+
+Step 1 and 2, Use the `@Injectable` decorator on each class and add them to the modules list of providers
+Step 3 and 4, Happens automatically, Nest will try to create contoller instances for us

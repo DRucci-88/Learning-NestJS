@@ -10,13 +10,15 @@ import { MessageService } from './message.service';
 
 @Controller('message')
 export class MessageController {
-    messageService: MessageService;
+    // messageService: MessageService;
 
-    constructor() {
-        // Serivce is creating its own dependencies
-        // DONT DO THIS ON REAL APPS
-        this.messageService = new MessageService();
-    }
+    // constructor() {
+    //     // Serivce is creating its own dependencies
+    //     // DONT DO THIS ON REAL APPS
+    //     this.messageService = new MessageService();
+    // }
+
+    constructor(private readonly messageService: MessageService) { }
 
     @Get()
     listMessages() {
