@@ -48,3 +48,19 @@ In most cases, it is better to use npx instead of installing global npm packages
 Just replace nest with npx @nestjs/cli for any command: `npx @nestjs/cli new project-name`
 
 <https://stackoverflow.com/questions/57266622/unable-to-create-a-new-project-with-the-nest-cli>
+
+### Controller
+
+```txt
+POST /message/5?validate=true HTTP/1.1
+Host: localhost:3001
+Content-Type: application/json
+{"content": "hi there"}
+```
+
+explanation decorator
+
+- 5 `@Param('id')`
+- validate=true `@Query()`
+- Host and Content-Type `@Headers()`
+- Json body `@Body()`
