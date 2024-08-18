@@ -2,7 +2,7 @@
 
 ## Basic Knowledge
 
-Basic flow
+### Basic flow
 
 1. Request coming from client
 1. `Pipe` Validate data contained in the request
@@ -12,7 +12,7 @@ Basic flow
 1. `Repository` Access a database
 1. Response send to client
 
-Parts of Nest
+### Parts of Nest
 
 - `Controller` Handles incoming request
 - `Service` Handles data access and business logic
@@ -40,3 +40,11 @@ File Naming Contentions
 - Class names should include the kind of thing we are creating
 - Name of class and name of file should always match up
 - Filename template: **name.type_of_thing.ts**
+
+### NestJS Command Line Tool
+
+In most cases, it is better to use npx instead of installing global npm packages, since you'll always use the latest version and not clutter your file system with things you don't need often.
+
+Just replace nest with npx @nestjs/cli for any command: `npx @nestjs/cli new project-name`
+
+<https://stackoverflow.com/questions/57266622/unable-to-create-a-new-project-with-the-nest-cli>
