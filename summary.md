@@ -123,7 +123,7 @@ Explanation
 Step 1 and 2, Use the `@Injectable` decorator on each class and add them to the modules list of providers
 Step 3 and 4, Happens automatically, Nest will try to create contoller instances for us
 
-## Persistent Data with Nest (Database)
+## TypeORM Persistent Data with Nest (Database)
 
 NestJS works fine with any ORM, but works well out of the box with TypeORM and Mongoose.
 
@@ -131,9 +131,10 @@ NestJS and TypeORM is a perfect combination. Therefore TypeORM support Typescrip
 
 AppModule responsible to make a Connection to Database and shared down into different module.
 
-### TypeORM
+## Entity
 
-- SQLite
-- Postgres
-- MySQL
-- MongoDB
+List out all the different properties that we expect our entity to have.
+
+- Create an entity file and create a class in it that lists all the properties that your entity will have
+- Connect the entity to its parent module. This creates a repository
+- Connect the entity to the root connection (in app module)
