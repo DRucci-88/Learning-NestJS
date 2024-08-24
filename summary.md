@@ -1,5 +1,7 @@
 # Nest Js
 
+`npx @nestjs/cli new name-of-project`
+
 ## Basic Knowledge
 
 ### Basic flow of Nest
@@ -120,3 +122,18 @@ Explanation
 
 Step 1 and 2, Use the `@Injectable` decorator on each class and add them to the modules list of providers
 Step 3 and 4, Happens automatically, Nest will try to create contoller instances for us
+
+## Persistent Data with Nest (Database)
+
+NestJS works fine with any ORM, but works well out of the box with TypeORM and Mongoose.
+
+NestJS and TypeORM is a perfect combination. Therefore TypeORM support Typescript by nature.
+
+AppModule responsible to make a Connection to Database and shared down into different module.
+
+### TypeORM
+
+- SQLite
+- Postgres
+- MySQL
+- MongoDB
