@@ -21,9 +21,10 @@ export class UserService {
         return this.userRepo.save(user);
     }
 
-    findOne(id: number): Promise<User> {
-        return this.userRepo.findOneBy({ id });
-        // return this.userRepo.findOne(id);
+    async findOne(id: number): Promise<User> {
+        const user = await this.userRepo.findOneBy({ id });
+        if (!user) throw new Error('User Not Found');
+        return user;
     }
 
     find(email: string): Promise<User[]> {
@@ -32,14 +33,12 @@ export class UserService {
 
     async update(id: number, content: Partial<User>): Promise<User> {
         const user: User = await this.findOne(id);
-        if (!user) throw new Error('User Not Found');
         Object.assign(user, content);
         return this.userRepo.save(user);
     }
 
     async remove(id: number): Promise<User> {
         const user: User = await this.findOne(id);
-        if (!user) throw new Error('User Not Found');
         return this.userRepo.remove(user);
     }
 }
