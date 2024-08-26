@@ -12,7 +12,12 @@ export class UserService {
     ) { }
 
     create(email: string, password: string): Promise<User> {
-        const user = this.userRepo.create({ email, password });
+        const user: User = this.userRepo.create({ email, password });
+        // Why we bother to create a user entity file before save ?
+        // Because we can make a validation to its entity
+        // Just a make sure run a validation before data can store up to database
+        // Also executed a Hooks inside entity
+        console.log(user.id);
 
         return this.userRepo.save(user);
     }
