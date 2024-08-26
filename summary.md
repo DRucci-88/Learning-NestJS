@@ -138,3 +138,18 @@ List out all the different properties that we expect our entity to have.
 - Create an entity file and create a class in it that lists all the properties that your entity will have
 - Connect the entity to its parent module. This creates a repository
 - Connect the entity to the root connection (in app module)
+
+## Repository
+
+Class that created automatically from Entity TypeORM.
+
+Some common built-in method / Repository API:
+
+- `create()` Makes a new instance of an entity, but does not persist it to the DB
+- `save()` Adds or update a record to the DB
+- `find()` Runs a query and returns a list of entities
+- `findOne()` Run a query, returning the first record mathinc the search crieteria
+- `remove()` Remove a record from the DB
+- `insert()`
+- `update()`
+- `delete()`
