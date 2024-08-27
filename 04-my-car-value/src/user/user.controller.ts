@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserService } from './user.service';
 import { User } from './user.entity';
@@ -21,6 +21,7 @@ export class UserController {
         return this.userService.create(email, password);
     }
 
+    @UseInterceptors(ClassSerializerInterceptor)
     @Get('/:id')    // even though id is number inside our database, Nest will automatically parse into string
     findUser(
         @Param('id') id: string
