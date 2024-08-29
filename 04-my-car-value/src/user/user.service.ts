@@ -7,8 +7,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class UserService {
     constructor(
         @InjectRepository(User)
-        private readonly userRepo: Repository<User> // Dependency Injection is not very good with Generic type, so need a Decorator to aid Dependency Injection
-    ) { }
+        private readonly userRepo: Repository<User>, // Dependency Injection is not very good with Generic type, so need a Decorator to aid Dependency Injection
+    ) {}
 
     create(email: string, password: string): Promise<User> {
         const user: User = this.userRepo.create({ email, password });

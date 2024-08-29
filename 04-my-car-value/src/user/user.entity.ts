@@ -1,7 +1,11 @@
 import {
-    AfterInsert, AfterRemove, AfterUpdate, // This is a Hooks
-    Entity, Column, PrimaryGeneratedColumn
-} from "typeorm";
+    AfterInsert,
+    AfterRemove,
+    AfterUpdate, // This is a Hooks
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {

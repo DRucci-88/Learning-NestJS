@@ -5,12 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Report } from './report.entity';
 
 @Module({
-  controllers: [ReportController],
-  providers: [ReportService],
-  imports: [
-    TypeOrmModule.forFeature([
-      Report
-    ]),
-  ]
+    controllers: [ReportController],
+    providers: [ReportService],
+    imports: [TypeOrmModule.forFeature([Report])],
 })
-export class ReportModule { }
+export class ReportModule {}
