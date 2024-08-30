@@ -5,5 +5,8 @@ export class UserDto {
     id: number;
 
     @Expose()
+    hobby: number;
+
+    @Expose()
     email: string;
 }

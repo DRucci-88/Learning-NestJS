@@ -2,14 +2,15 @@
 POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
-{
+{   
+    "hobby": "Ternak lele",
     "email": "hesoyam@gmail.com",
     "password": "halo",
-    "Halo": "halo"
+    "Halo": "halo content ini gak masuk karena ValidationPipes whitelist=true"
 }
 
 ### Find a particular user with a given id
-GET http://localhost:3000/auth/4
+GET http://localhost:3000/auth/1
 
 ### Find all user with a given email
 GET http://localhost:3000/auth?email=lerucco@gmail.com

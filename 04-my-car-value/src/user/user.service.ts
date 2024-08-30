@@ -10,8 +10,8 @@ export class UserService {
         private readonly userRepo: Repository<User>, // Dependency Injection is not very good with Generic type, so need a Decorator to aid Dependency Injection
     ) {}
 
-    create(email: string, password: string): Promise<User> {
-        const user: User = this.userRepo.create({ email, password });
+    create(hobby: string, email: string, password: string): Promise<User> {
+        const user: User = this.userRepo.create({ hobby, email, password });
         // Why we bother to create a user entity file before save ?
         // Because we can make a validation to its entity
         // Just a make sure run a validation before data can store up to database
