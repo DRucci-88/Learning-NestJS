@@ -15,19 +15,28 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { Serialize } from 'src/interceptor/serialize.interceptor';
 import { FindByEmailUserDto } from './dtos/find-by-email-user.dto';
+import { AuthService } from './auth.service';
+import { SigninUserDto } from './dtos/signin-user.dto';
 
 @Serialize(UserDto)
 @Controller('auth')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(
+        private readonly userService: UserService,
+        private readonly authService: AuthService,
+    ) {}
 
     @Post('/signup')
     createUser(@Body() body: CreateUserDto): Promise<User> {
         const { hobby, email, password }: CreateUserDto = body;
         console.log(body);
-        // return body;
+        return this.authService.signup(hobby, email, password);
+    }
 
-        return this.userService.create(hobby, email, password);
+    @Post('/signin')
+    signin(@Body() body: SigninUserDto): Promise<User> {
+        const { email, password } = body;
+        return this.authService.signin(email, password);
     }
 
     @Get('/:id') // even though id is number inside our database, Nest will automatically parse into string
