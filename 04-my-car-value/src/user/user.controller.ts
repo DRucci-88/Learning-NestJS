@@ -15,6 +15,7 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { Serialize } from 'src/interceptor/serialize.interceptor';
 
+@Serialize(UserDto)
 @Controller('auth')
 export class UserController {
     constructor(private readonly userService: UserService) {}
@@ -28,7 +29,6 @@ export class UserController {
         return this.userService.create(hobby, email, password);
     }
 
-    @Serialize(UserDto)
     @Get('/:id') // even though id is number inside our database, Nest will automatically parse into string
     findUser(@Param('id') id: string) {
         console.log('handler is running');
