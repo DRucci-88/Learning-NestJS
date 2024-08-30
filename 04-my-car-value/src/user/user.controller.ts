@@ -14,6 +14,7 @@ import { User } from './user.entity';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { Serialize } from 'src/interceptor/serialize.interceptor';
+import { FindByEmailUserDto } from './dtos/find-by-email-user.dto';
 
 @Serialize(UserDto)
 @Controller('auth')
@@ -36,8 +37,10 @@ export class UserController {
     }
 
     @Get()
-    findAllUsers(@Query('email') email: string) {
-        return this.userService.find(email);
+    // findAllUsers(@Query('email') email: string)
+    findAllUsers(@Query() queryParam: FindByEmailUserDto) {
+        console.log(queryParam);
+        return this.userService.find(queryParam.email);
     }
 
     @Patch('/:id')
