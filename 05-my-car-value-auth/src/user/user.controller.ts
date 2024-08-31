@@ -7,6 +7,7 @@ import {
     Patch,
     Post,
     Query,
+    Session,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserService } from './user.service';
@@ -31,6 +32,16 @@ export class UserController {
         const { hobby, email, password }: CreateUserDto = body;
         console.log(body);
         return this.authService.signup(hobby, email, password);
+    }
+
+    @Get('/colors/:color')
+    setColor(@Param('color') color: string, @Session() session: any) {
+        session.color = color;
+    }
+
+    @Get('/colors')
+    getColor(@Session() session: any) {
+        return session.color;
     }
 
     @Post('/signin')

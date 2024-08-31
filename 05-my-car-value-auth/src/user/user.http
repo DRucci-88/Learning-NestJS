@@ -36,3 +36,9 @@ Content-Type: application/json
 
 ### Delete a user with given id
 DELETE  http://localhost:3000/auth/3
+
+### Session Set a color
+GET http://localhost:3000/auth/colors/red
+
+### Session Get a color
+GET http://localhost:3000/auth/colors
