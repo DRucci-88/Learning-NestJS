@@ -18,6 +18,7 @@ import { Serialize } from 'src/interceptor/serialize.interceptor';
 import { FindByEmailUserDto } from './dtos/find-by-email-user.dto';
 import { AuthService } from './auth.service';
 import { SigninUserDto } from './dtos/signin-user.dto';
+import { ICookieSession } from 'src/main';
 
 @Serialize(UserDto)
 @Controller('auth')
@@ -27,11 +28,56 @@ export class UserController {
         private readonly authService: AuthService,
     ) {}
 
+    @Get('current-user')
+    currentUser(@Session() session: ICookieSession) {
+        return this.userService.findOne(session.id);
+    }
+
     @Post('/signup')
-    createUser(@Body() body: CreateUserDto): Promise<User> {
+    async createUser(
+        @Body() body: CreateUserDto,
+        @Session() session: any,
+    ): Promise<User> {
         const { hobby, email, password }: CreateUserDto = body;
         console.log(body);
-        return this.authService.signup(hobby, email, password);
+        const user = await this.authService.signup(hobby, email, password);
+        console.log(session);
+        const userCookieSession: ICookieSession = {
+            id: user.id,
+            email: user.email,
+        };
+        session.id = userCookieSession.id;
+        session.email = userCookieSession.email;
+        console.log(session);
+        return user;
+    }
+
+    @Post('/signout')
+    signout(@Session() session: any) {
+        console.log(session);
+        session.color = null;
+        session.id = null;
+        session.email = null;
+        console.log(session);
+    }
+
+    @Post('/signin')
+    async signin(
+        @Body() body: SigninUserDto,
+        @Session() session: any,
+    ): Promise<User> {
+        const { email, password } = body;
+        const user = await this.authService.signin(email, password);
+        const userCookieSession: ICookieSession = {
+            id: user.id,
+            email: user.email,
+        };
+        console.log(session);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        session.id = userCookieSession.id;
+        session.email = userCookieSession.email;
+        console.log(session);
+        return user;
     }
 
     @Get('/colors/:color')
@@ -42,12 +88,6 @@ export class UserController {
     @Get('/colors')
     getColor(@Session() session: any) {
         return session.color;
-    }
-
-    @Post('/signin')
-    signin(@Body() body: SigninUserDto): Promise<User> {
-        const { email, password } = body;
-        return this.authService.signin(email, password);
     }
 
     @Get('/:id') // even though id is number inside our database, Nest will automatically parse into string

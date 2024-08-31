@@ -4,6 +4,11 @@ import { ValidationPipe } from '@nestjs/common';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cookieSession = require('cookie-session'); // Compability Issue
 
+export interface ICookieSession {
+    id: number;
+    email: string;
+}
+
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.use(
