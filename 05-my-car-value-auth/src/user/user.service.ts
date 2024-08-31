@@ -1,8 +1,4 @@
-import {
-    Injectable,
-    NotFoundException,
-    UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -26,7 +22,6 @@ export class UserService {
     }
 
     async findOne(id: number | null): Promise<User> {
-        if (!id) throw new UnauthorizedException('Unauthorized');
         const user = await this.userRepo.findOneBy({ id });
         if (!user) throw new NotFoundException('User Not Found');
         return user;

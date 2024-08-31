@@ -19,6 +19,7 @@ import { FindByEmailUserDto } from './dtos/find-by-email-user.dto';
 import { AuthService } from './auth.service';
 import { SigninUserDto } from './dtos/signin-user.dto';
 import { ICookieSession } from 'src/main';
+import { CurrentUser } from './decorator/current-user.decorator';
 
 @Serialize(UserDto)
 @Controller('auth')
@@ -28,9 +29,14 @@ export class UserController {
         private readonly authService: AuthService,
     ) {}
 
+    // @Get('current-user')
+    // currentUser(@Session() session: ICookieSession) {
+    //     return this.userService.findOne(session.id);
+    // }
+
     @Get('current-user')
-    currentUser(@Session() session: ICookieSession) {
-        return this.userService.findOne(session.id);
+    currentUser(@CurrentUser() user: string) {
+        return user;
     }
 
     @Post('/signup')
