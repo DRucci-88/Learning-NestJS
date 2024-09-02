@@ -8,6 +8,7 @@ import {
     Post,
     Query,
     Session,
+    UseInterceptors,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserService } from './user.service';
@@ -20,9 +21,11 @@ import { AuthService } from './auth.service';
 import { SigninUserDto } from './dtos/signin-user.dto';
 import { ICookieSession } from 'src/main';
 import { CurrentUser } from './decorator/current-user.decorator';
+import { CurrentUserInterceptor } from './interceptor/current-user.interceptor';
 
-@Serialize(UserDto)
 @Controller('auth')
+@Serialize(UserDto)
+@UseInterceptors(CurrentUserInterceptor)
 export class UserController {
     constructor(
         private readonly userService: UserService,
@@ -35,7 +38,7 @@ export class UserController {
     // }
 
     @Get('current-user')
-    currentUser(@CurrentUser() user: string) {
+    currentUser(@CurrentUser() user: User) {
         return user;
     }
 
