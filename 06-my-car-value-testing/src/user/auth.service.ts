@@ -17,7 +17,7 @@ export class AuthService {
         // Seed if email is in use
         const users = await this.userService.find(email);
 
-        if (users.length) throw new BadRequestException('Email in use');
+        if (users.length) throw new BadRequestException('Email already in use');
 
         // Hash the user password
         // Generate a salt
@@ -50,7 +50,7 @@ export class AuthService {
         const result = salt + '.' + hash.toString('hex');
 
         if (result !== user.password)
-            throw new BadRequestException('Wrong Credentials');
+            throw new BadRequestException('Wrong credentials');
 
         return user;
     }
