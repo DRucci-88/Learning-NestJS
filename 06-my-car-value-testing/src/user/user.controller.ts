@@ -82,7 +82,6 @@ export class UserController {
             email: user.email,
         };
         console.log(session);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         session.id = userCookieSession.id;
         session.email = userCookieSession.email;
         console.log(session);
