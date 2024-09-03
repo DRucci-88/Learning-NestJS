@@ -21,19 +21,19 @@ describe('AuthService', () => {
             password: 'le',
         } as User;
 
-        const faksUsers: User[] = [];
+        const fakeUsers: User[] = [];
 
         // Create a fake copy of the user service
         fakeUserService = {
             find: (email: string) => {
-                const filteredUser = faksUsers.filter(
+                const filteredUser = fakeUsers.filter(
                     (user) => user.email === email,
                 );
                 return Promise.resolve(filteredUser);
             },
             create: (hobby: string, email: string, password: string) => {
                 const user: User = { id: 1, hobby, email, password } as User;
-                faksUsers.push(user);
+                fakeUsers.push(user);
                 return Promise.resolve(user);
             },
         };

@@ -15,13 +15,13 @@ import { UserService } from './user.service';
 import { User } from './user.entity';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
-import { Serialize } from 'src/interceptor/serialize.interceptor';
+import { Serialize } from '../interceptor/serialize.interceptor';
 import { FindByEmailUserDto } from './dtos/find-by-email-user.dto';
 import { AuthService } from './auth.service';
 import { SigninUserDto } from './dtos/signin-user.dto';
-import { ICookieSession } from 'src/main';
+import { ICookieSession } from '../main';
 import { CurrentUser } from './decorator/current-user.decorator';
-import { AuthGuard } from 'src/guard/auth.guard';
+import { AuthGuard } from '../guard/auth.guard';
 
 @Controller('auth')
 @Serialize(UserDto)
