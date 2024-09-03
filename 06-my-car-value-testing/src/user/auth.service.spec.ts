@@ -21,11 +21,21 @@ describe('AuthService', () => {
             password: 'le',
         } as User;
 
+        const faksUsers: User[] = [];
+
         // Create a fake copy of the user service
         fakeUserService = {
-            find: () => Promise.resolve([]),
-            create: (hobby: string, email: string, password: string) =>
-                Promise.resolve({ id: 1, hobby, email, password } as User),
+            find: (email: string) => {
+                const filteredUser = faksUsers.filter(
+                    (user) => user.email === email,
+                );
+                return Promise.resolve(filteredUser);
+            },
+            create: (hobby: string, email: string, password: string) => {
+                const user: User = { id: 1, hobby, email, password } as User;
+                faksUsers.push(user);
+                return Promise.resolve(user);
+            },
         };
 
         // Create the module
@@ -81,10 +91,28 @@ describe('AuthService', () => {
             expect(error.message).toBe('User not found');
         }
     });
+    it('user can signup and signin', async () => {
+        const userSignup = await authService.signup(
+            fakeUser.hobby,
+            fakeUser.email,
+            fakeUser.password,
+        );
+        expect(userSignup).toBeDefined();
+        const userSignin = await authService.signin(
+            fakeUser.email,
+            fakeUser.password,
+        );
+        expect(userSignin).toBeDefined();
+    });
     it('throws if an invalid password is provided', async () => {
-        fakeUserService.find = () => Promise.resolve([fakeUser]);
         try {
-            await authService.signin('hesoyam@gmail', 'hesoyam');
+            const userSignup = await authService.signup(
+                fakeUser.hobby,
+                fakeUser.email,
+                fakeUser.password,
+            );
+            expect(userSignup).toBeDefined();
+            await authService.signin(fakeUser.email, 'mueheehehhehe');
         } catch (error) {
             expect(error).toBeInstanceOf(BadRequestException);
             expect(error.message).toBe('Wrong credentials');

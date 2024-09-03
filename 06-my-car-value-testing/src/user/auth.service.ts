@@ -6,6 +6,7 @@ import {
 import { UserService } from './user.service';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
+import { User } from './user.entity';
 
 const scrypt = promisify(_scrypt);
 
@@ -13,7 +14,11 @@ const scrypt = promisify(_scrypt);
 export class AuthService {
     constructor(private readonly userService: UserService) {}
 
-    async signup(hobby: string, email: string, password: string) {
+    async signup(
+        hobby: string,
+        email: string,
+        password: string,
+    ): Promise<User> {
         // Seed if email is in use
         const users = await this.userService.find(email);
 
@@ -36,7 +41,7 @@ export class AuthService {
         return user;
     }
 
-    async signin(email: string, password: string) {
+    async signin(email: string, password: string): Promise<User> {
         const users = await this.userService.find(email);
 
         if (users.length === 0) throw new NotFoundException('User not found');
