@@ -71,7 +71,12 @@ describe('AuthService', () => {
         expect(hash).toBeDefined();
     });
     it('throws an error if the user signs up with email that already in use', async () => {
-        fakeUserService.find = () => Promise.resolve([fakeUser]);
+        const user: User = await authService.signup(
+            'menggali sumur',
+            'hesoyam@gmail.com',
+            'hesoyam',
+        );
+        expect(user).toBeDefined();
         try {
             await authService.signup(
                 'menggali sumur',
@@ -105,13 +110,13 @@ describe('AuthService', () => {
         expect(userSignin).toBeDefined();
     });
     it('throws if an invalid password is provided', async () => {
+        const userSignup = await authService.signup(
+            fakeUser.hobby,
+            fakeUser.email,
+            fakeUser.password,
+        );
+        expect(userSignup).toBeDefined();
         try {
-            const userSignup = await authService.signup(
-                fakeUser.hobby,
-                fakeUser.email,
-                fakeUser.password,
-            );
-            expect(userSignup).toBeDefined();
             await authService.signin(fakeUser.email, 'mueheehehhehe');
         } catch (error) {
             expect(error).toBeInstanceOf(BadRequestException);
