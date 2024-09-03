@@ -101,7 +101,6 @@ export class UserController {
 
     @Get('/:id') // even though id is number inside our database, Nest will automatically parse into string
     findUser(@Param('id') id: string) {
-        console.log('handler is running');
         return this.userService.findOne(Number.parseInt(id));
     }
 

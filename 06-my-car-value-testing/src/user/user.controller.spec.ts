@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
 import { NotFoundException } from '@nestjs/common';
+import { FindByEmailUserDto } from './dtos/find-by-email-user.dto';
 
 describe('UserController', () => {
     let controller: UserController;
@@ -50,5 +51,24 @@ describe('UserController', () => {
 
     it('should be defined', () => {
         expect(controller).toBeDefined();
+    });
+    it('findAllUsers with the given email', async () => {
+        const param: FindByEmailUserDto = { email: fakeUser.email };
+        const users = await controller.findAllUsers(param);
+        expect(users).toBeDefined();
+        expect(users.length).toEqual(1);
+        expect(users[0].email).toEqual(param.email);
+    });
+    it('findUser with the given id', async () => {
+        const user = await controller.findUser(fakeUser.id.toString());
+        expect(user).toBeDefined();
+    });
+    it('findUser throws an error if user the given id not found', async () => {
+        try {
+            await controller.findUser('2');
+        } catch (error) {
+            expect(error).toBeInstanceOf(NotFoundException);
+            expect(error.message).toBe('User not found');
+        }
     });
 });
