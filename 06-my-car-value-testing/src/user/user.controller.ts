@@ -48,26 +48,23 @@ export class UserController {
         @Session() session: any,
     ): Promise<User> {
         const { hobby, email, password }: CreateUserDto = body;
-        console.log(body);
+
         const user = await this.authService.signup(hobby, email, password);
-        console.log(session);
+
         const userCookieSession: ICookieSession = {
             id: user.id,
             email: user.email,
         };
         session.id = userCookieSession.id;
         session.email = userCookieSession.email;
-        console.log(session);
         return user;
     }
 
     @Post('/signout')
     signout(@Session() session: any) {
-        console.log(session);
         session.color = null;
         session.id = null;
         session.email = null;
-        console.log(session);
     }
 
     @Post('/signin')
@@ -81,10 +78,10 @@ export class UserController {
             id: user.id,
             email: user.email,
         };
-        console.log(session);
+
         session.id = userCookieSession.id;
         session.email = userCookieSession.email;
-        console.log(session);
+
         return user;
     }
 
@@ -106,7 +103,6 @@ export class UserController {
     @Get()
     // findAllUsers(@Query('email') email: string)
     findAllUsers(@Query() queryParam: FindByEmailUserDto) {
-        console.log(queryParam);
         return this.userService.find(queryParam.email);
     }
 

@@ -16,7 +16,6 @@ export class UserService {
         // Because we can make a validation to its entity
         // Just a make sure run a validation before data can store up to database
         // Also executed a Hooks inside entity
-        console.log(user.id);
 
         return this.userRepo.save(user);
     }
