@@ -3,7 +3,6 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { CreateUserDto } from '../src/user/dtos/create-user.dto';
-import { appSetup } from '../src/app-setup';
 
 describe('Authentication System', () => {
     let app: INestApplication;
@@ -14,15 +13,14 @@ describe('Authentication System', () => {
         }).compile();
 
         app = moduleFixture.createNestApplication();
-        appSetup(app);
         await app.init();
     });
 
     it('signup request', () => {
         const user: CreateUserDto = {
             hobby: 'membajak sawah',
-            email: 'rucco2@gmail.com',
-            password: 'rucco2',
+            email: 'rucco3@gmail.com',
+            password: 'rucco3',
         };
         return request(app.getHttpServer())
             .post('/auth/signup')
