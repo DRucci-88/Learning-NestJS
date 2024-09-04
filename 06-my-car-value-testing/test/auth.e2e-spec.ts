@@ -19,8 +19,8 @@ describe('Authentication System', () => {
     it('signup request', () => {
         const user: CreateUserDto = {
             hobby: 'membajak sawah',
-            email: 'rucco3@gmail.com',
-            password: 'rucco3',
+            email: 'rucco4@gmail.com',
+            password: 'rucco4',
         };
         return request(app.getHttpServer())
             .post('/auth/signup')
