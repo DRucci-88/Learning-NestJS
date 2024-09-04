@@ -36,7 +36,7 @@ export class UserController {
     //     return this.userService.findOne(session.id);
     // }
 
-    @Get('current-user')
+    @Get('/current-user')
     @UseGuards(AuthGuard)
     currentUser(@CurrentUser() user: User) {
         return user;
