@@ -23,16 +23,16 @@ export class User {
 
     @AfterInsert()
     logInsert() {
-        console.log(`Inserted ${this.id}`);
+        // console.log(`Inserted ${this.id}`);
     }
 
     @AfterRemove()
     logRemove() {
-        console.log(`Deleted ${this.id}`);
+        // console.log(`Deleted ${this.id}`);
     }
 
     @AfterUpdate()
     logUpdate() {
-        console.log(`Update ${this.id}`);
+        // console.log(`Update ${this.id}`);
     }
 }
