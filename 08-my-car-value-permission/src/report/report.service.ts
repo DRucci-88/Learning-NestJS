@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import { Report } from './report.entity';
 import { User } from 'src/user/user.entity';
+import { ApproveReportDto } from './dto/approve-report.dto';
 
 @Injectable()
 export class ReportService {
@@ -26,5 +27,18 @@ export class ReportService {
             user: user,
         });
         return reports.sort((a, b) => a.id - b.id);
+    };
+
+    changeApproval = async (
+        id: string,
+        dto: ApproveReportDto,
+    ): Promise<Report> => {
+        const report: Report = await this.reportRepo.findOne({
+            where: { id: Number.parseInt(id) },
+        });
+        if (!report) throw new NotFoundException('Report not found');
+
+        report.approved = dto.approved;
+        return this.reportRepo.save(report);
     };
 }

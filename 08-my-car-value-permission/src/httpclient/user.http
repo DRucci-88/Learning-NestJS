@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {   
     "hobby": "Ternak lele",
-    "email": "le@gmail.com",
-    "password": "le",
+    "email": "ke@gmail.com",
+    "password": "ke",
     "Halo": "halo content ini gak masuk karena ValidationPipes whitelist=true"
 }
 

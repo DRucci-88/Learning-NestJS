@@ -9,6 +9,9 @@ export class ReportDto {
     userId: string;
 
     @Expose()
+    approved: boolean;
+
+    @Expose()
     price: number;
 
     @Expose()
