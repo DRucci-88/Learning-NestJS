@@ -39,6 +39,7 @@ export class ReportService {
         if (!report) throw new NotFoundException('Report not found');
 
         report.approved = dto.approved;
+        report.user;
         return this.reportRepo.save(report);
     };
 }
