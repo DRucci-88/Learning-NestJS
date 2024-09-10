@@ -1,5 +1,5 @@
 {
-  "name": "04-my-car-value",
+  "name": "07-my-car-value",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -27,7 +27,7 @@
     "@nestjs/typeorm": "^10.0.2",
     "@types/cookie-session": "^2.0.49",
     "@types/proper-lockfile": "^4.1.4",
-    "04-my-car-value": "file:",
+    "07-my-car-value": "file:",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cookie-session": "^2.1.0",

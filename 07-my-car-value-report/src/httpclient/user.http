@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {   
     "hobby": "Ternak lele",
-    "email": "le4@gmail.com",
-    "password": "halo",
+    "email": "le@gmail.com",
+    "password": "le",
     "Halo": "halo content ini gak masuk karena ValidationPipes whitelist=true"
 }
 
@@ -14,8 +14,8 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "le1@gmail.com",
-    "password": "halo"
+    "email": "le@gmail.com",
+    "password": "le"
 }
 
 ### Session Signout
@@ -28,7 +28,7 @@ GET http://localhost:3000/auth/current-user
 GET http://localhost:3000/auth/1
 
 ### Find all user with a given email
-GET http://localhost:3000/auth?email=hesoyam@gmail.com
+GET http://localhost:3000/auth?email=le@gmail.com
 
 ### Update a user with given id and body
 PATCH http://localhost:3000/auth/2
