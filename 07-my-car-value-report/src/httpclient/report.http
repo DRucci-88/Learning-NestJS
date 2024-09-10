@@ -11,3 +11,6 @@ Content-Type: application/json
     "latitude": 0,
     "mileage": 45000
 }
+
+### Find reports that authenticated user created
+GET http://localhost:3000/report

@@ -13,11 +13,18 @@ export class ReportService {
         private readonly reportRepo: Repository<Report>,
     ) {}
 
-    create = (dto: CreateReportDto, user: User) => {
+    create = (dto: CreateReportDto, user: User): Promise<Report> => {
         // const report: DeepPartial<Report> = this.reportRepo.create(dto);
 
         const report: DeepPartial<Report> = plainToInstance(Report, dto);
         report.user = user;
         return this.reportRepo.save(report);
+    };
+
+    findByUser = async (user: User): Promise<Report[]> => {
+        const reports = await this.reportRepo.findBy({
+            user: user,
+        });
+        return reports.sort((a, b) => a.id - b.id);
     };
 }
