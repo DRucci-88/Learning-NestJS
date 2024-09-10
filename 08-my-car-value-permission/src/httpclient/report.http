@@ -1,0 +1,16 @@
+### Create new Report
+POST http://localhost:3000/report
+Content-Type: application/json
+
+{
+    "price": 123000,
+    "make": "toyota",
+    "model": "corolla",
+    "year": 1980,
+    "longitude": 0,
+    "latitude": 0,
+    "mileage": 45000
+}
+
+### Find reports that authenticated user created
+GET http://localhost:3000/report

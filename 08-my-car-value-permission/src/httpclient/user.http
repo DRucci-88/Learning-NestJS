@@ -1,0 +1,50 @@
+### Create New User
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{   
+    "hobby": "Ternak lele",
+    "email": "le@gmail.com",
+    "password": "le",
+    "Halo": "halo content ini gak masuk karena ValidationPipes whitelist=true"
+}
+
+### Signin as existing user
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "le@gmail.com",
+    "password": "le"
+}
+
+### Session Signout
+POST http://localhost:3000/auth/signout
+
+### Session Current User
+GET http://localhost:3000/auth/current-user
+
+### Find a particular user with a given id
+GET http://localhost:3000/auth/1
+
+### Find all user with a given email
+GET http://localhost:3000/auth?email=le@gmail.com
+
+### Update a user with given id and body
+PATCH http://localhost:3000/auth/2
+Content-Type: application/json
+
+{
+    "email": "hesoyaaaaam@gmail.com",
+    "password": "haloaaa",
+    "Halo": "Haloooo"
+}
+
+### Delete a user with given id
+DELETE  http://localhost:3000/auth/3
+
+### Session Set a color
+GET http://localhost:3000/auth/colors/red
+
+### Session Get a color
+GET http://localhost:3000/auth/colors
