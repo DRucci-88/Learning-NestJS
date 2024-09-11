@@ -6,6 +6,7 @@ import { plainToInstance } from 'class-transformer';
 import { Report } from './report.entity';
 import { User } from 'src/user/user.entity';
 import { ApproveReportDto } from './dto/approve-report.dto';
+import { GetEstimateReport } from './dto/get-estimate-report.dto';
 
 @Injectable()
 export class ReportService {
@@ -42,4 +43,26 @@ export class ReportService {
         report.user;
         return this.reportRepo.save(report);
     };
+
+    public async createEstimate(dto: GetEstimateReport) {
+        return this.reportRepo
+            .createQueryBuilder()
+            .select('AVG(price)', 'price')
+            .where('make = :make', { make: dto.make })
+            .andWhere('model = :model', { model: dto.model })
+            .andWhere('longitude - :longitude BETWEEN -5 AND 5', {
+                longitude: dto.longitude,
+            })
+            .andWhere('latitude - :latitude BETWEEN -5 AND 5', {
+                latitude: dto.latitude,
+            })
+            .andWhere('year - :year BETWEEN -3 AND 3', {
+                year: dto.year,
+            })
+            .andWhere('approved IS TRUE')
+            .orderBy('ABS(mileage - :mileage)', 'DESC')
+            .setParameters({ mileage: dto.mileage })
+            .limit(3)
+            .getRawOne();
+    }
 }

@@ -39,13 +39,13 @@ export class ReportController {
 
     @Patch('/:id')
     @UseGuards(AdminGuard)
-    @Serialize(ReportDto)
+    // @Serialize(ReportDto)
     approvalReport(@Param('id') id: string, @Body() body: ApproveReportDto) {
         return this.reportService.changeApproval(id, body);
     }
 
     @Get('/estimate')
     getEstimate(@Query() query: GetEstimateReport) {
-        return query;
+        return this.reportService.createEstimate(query);
     }
 }
