@@ -40,6 +40,8 @@ const cookieSession = require('cookie-session'); // Compability Issue
         //     entities: [User, Report],
         //     synchronize: true,
         // }),
+
+        // ConfigService which we can use to read out configuration file .env
         ConfigModule.forRoot({
             isGlobal: true,
             envFilePath: `.env.${process.env.NODE_ENV}`,
@@ -58,12 +60,13 @@ const cookieSession = require('cookie-session'); // Compability Issue
     ],
 })
 export class AppModule {
+    constructor(private readonly configService: ConfigService) {}
     // Global Middleware
     configure(consumer: MiddlewareConsumer) {
         consumer
             .apply(
                 cookieSession({
-                    keys: ['LeRucco'],
+                    keys: [this.configService.get('COOKIE_KEY')],
                 }),
             )
             .forRoutes('*');
