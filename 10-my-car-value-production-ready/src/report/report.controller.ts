@@ -13,10 +13,10 @@ import { ReportService } from './report.service';
 import { AuthGuard } from '../guard/auth.guard';
 import { CurrentUser } from '../user/decorator/current-user.decorator';
 import { User } from '../user/user.entity';
-import { Serialize } from 'src/interceptor/serialize.interceptor';
+import { Serialize } from '../interceptor/serialize.interceptor';
 import { ReportDto } from './dto/report.dto';
 import { ApproveReportDto } from './dto/approve-report.dto';
-import { AdminGuard } from 'src/guard/admin.guard';
+import { AdminGuard } from '../guard/admin.guard';
 import { GetEstimateReport } from './dto/get-estimate-report.dto';
 
 @Controller('report')

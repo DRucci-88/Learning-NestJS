@@ -28,7 +28,7 @@ const cookieSession = require('cookie-session'); // Compability Issue
                 return {
                     type: 'sqlite',
                     database: config.get<string>('DB_NAME'),
-                    synchronize: true, // Development only
+                    synchronize: true, // Dangerous ... Please consider using it
                     entities: [User, Report],
                 };
             },
@@ -72,3 +72,21 @@ export class AppModule {
             .forRoutes('*');
     }
 }
+
+/**
+ * Creating and Running Migrations During Development
+ * 1. Stop the development server
+ * 2. Use the TypeORM CLI to generate an empyt migration file
+ * 3. Add some code to change our DB in the migration file
+ * 4. Use the TypeORM CLI to apply the migration to the DB
+ *      During this process TypeORM CLI will executed only our entity files + migration files
+ *      Then connect to the DB and make changes.
+ *      Nothing related to Nest will get executed.
+ *      This will led some issues, because environment test, development and production configuration using ConfigService (AppModule)
+ *      TypeORM have no idea what is Nest / ConfigService / AppModule
+ * 5. DB is updated, Restart the development server
+ *
+ * Inside the migration file there are 2 method available
+ * 1. up() Describe how to update the structure of DB
+ * 2. down() Describe how to undo the steps in up()
+ */
