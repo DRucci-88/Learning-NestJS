@@ -22,7 +22,10 @@ export class AuthService {
         // Seed if email is in use
         const users = await this.userService.find(email);
 
-        if (users.length) throw new BadRequestException('Email already in use');
+        console.table(users);
+
+        if (users.length !== 0)
+            throw new BadRequestException('Email already in use');
 
         // Hash the user password
         // Generate a salt

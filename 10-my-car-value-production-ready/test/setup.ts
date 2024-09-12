@@ -1,5 +1,6 @@
 import { unlinkSync, existsSync, renameSync } from 'fs';
 // import { rm } from 'fs/promises';
+import { rm } from 'fs';
 import { join } from 'path';
 import { checkSync, unlockSync } from 'proper-lockfile';
 
@@ -15,26 +16,34 @@ import { checkSync, unlockSync } from 'proper-lockfile';
  */
 
 global.beforeEach(async () => {
-    const fileDir = join(__dirname, '..', 'test.sqlite');
-    // const fileDirTemp = join(__dirname, '..', 'testtemp.sqlite');
-
     try {
-        // if (existsSync(fileDir)) renameSync(fileDir, fileDirTemp); // It's not going to affect the current open handles
-        // if (existsSync(fileDirTemp)) unlinkSync(fileDirTemp);
-        // if (existsSync(fileDir)) unlinkSync(fileDir);
-        // await new Promise((resolve) => setTimeout(resolve, 3000));
-        // await rm(fileDir);
-
-        const isLocked: boolean = checkSync(fileDir);
-        if (isLocked) unlockSync(fileDir);
-        unlockSync(fileDir);
-        unlinkSync(fileDir);
-
-        console.log('setup success', fileDir);
-    } catch (err) {
-        console.log(err);
-        console.log('setup failed', fileDir);
+        await rm(join(__dirname, '..', 'test.sqlite'), () => {});
+        // await rm(join(__dirname, '..', 'test.sqlite'));
+        console.log('Remove test.sqlite SUCCESS');
+    } catch (error) {
+        console.log('Remove test.sqlite FAILED');
     }
+
+    // const fileDir = join(__dirname, '..', 'test.sqlite');
+    // // const fileDirTemp = join(__dirname, '..', 'testtemp.sqlite');
+
+    // try {
+    //     // if (existsSync(fileDir)) renameSync(fileDir, fileDirTemp); // It's not going to affect the current open handles
+    //     // if (existsSync(fileDirTemp)) unlinkSync(fileDirTemp);
+    //     // if (existsSync(fileDir)) unlinkSync(fileDir);
+    //     // await new Promise((resolve) => setTimeout(resolve, 3000));
+    //     // await rm(fileDir);
+
+    //     const isLocked: boolean = checkSync(fileDir);
+    //     if (isLocked) unlockSync(fileDir);
+    //     unlockSync(fileDir);
+    //     unlinkSync(fileDir);
+
+    //     console.log('setup success', fileDir);
+    // } catch (err) {
+    //     console.log(err);
+    //     console.log('setup failed', fileDir);
+    // }
 });
 
 // global.afterEach(async () => {

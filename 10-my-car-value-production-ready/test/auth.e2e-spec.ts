@@ -49,6 +49,7 @@ describe('Authentication System', () => {
             .post('/auth/signup')
             .send(fakeUser)
             .expect(201);
+        console.log(res.body);
 
         const cookie = res.get('Set-Cookie');
 

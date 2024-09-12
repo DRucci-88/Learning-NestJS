@@ -4,10 +4,9 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ReportModule } from './report/report.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user/user.entity';
-import { Report } from './report/report.entity';
 import { APP_PIPE } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmConfigService } from './config/typeorm.config';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cookieSession = require('cookie-session'); // Compability Issue
 
@@ -15,24 +14,32 @@ const cookieSession = require('cookie-session'); // Compability Issue
     imports: [
         UserModule,
         ReportModule,
-        // We need to get ConfigService through DI
+
         TypeOrmModule.forRootAsync({
-            inject: [
-                // Tells the DI system to find configuration service which should have config from chosen .env file
-                // And we want to get access to that instance during the setup of ORM Module
-                ConfigService,
-            ],
-            useFactory: (config: ConfigService) => {
-                // this is DI part
-                // Get a copy instance of ConfigService that should have all information from all .env file
-                return {
-                    type: 'sqlite',
-                    database: config.get<string>('DB_NAME'),
-                    synchronize: true, // Dangerous ... Please consider using it
-                    entities: [User, Report],
-                };
-            },
+            useClass: TypeOrmConfigService,
         }),
+
+        // We need to get ConfigService through DI
+        // TypeOrmModule.forRootAsync({
+        //     inject: [
+        //         // Tells the DI system to find configuration service which should have config from chosen .env file
+        //         // And we want to get access to that instance during the setup of ORM Module
+        //         ConfigService,
+        //     ],
+        //     useFactory: (config: ConfigService) => {
+        //         // this is DI part
+        //         // Get a copy instance of ConfigService that should have all information from all .env file
+        //         return {
+        //             type: 'sqlite',
+        //             database: config.get<string>('DB_NAME'),
+        //             synchronize: true, // Dangerous ... Please consider using it
+        //             entities: [User, Report],
+        //         };
+        //     },
+        // }),
+
+        // TypeOrmModule.forRoot(),
+
         // TypeOrmModule.forRoot({
         //     // Root connection
         //     type: 'sqlite',
@@ -89,4 +96,6 @@ export class AppModule {
  * Inside the migration file there are 2 method available
  * 1. up() Describe how to update the structure of DB
  * 2. down() Describe how to undo the steps in up()
+ *
+ * Look at data-source.ts and config/typeorm.config.ts
  */
