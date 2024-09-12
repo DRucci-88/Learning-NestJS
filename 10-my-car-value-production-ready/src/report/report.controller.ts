@@ -32,7 +32,7 @@ export class ReportController {
 
     @Get()
     @UseGuards(AuthGuard)
-    @Serialize(ReportDto)
+    // @Serialize(ReportDto)
     findByUser(@CurrentUser() user: User) {
         return this.reportService.findByUser(user);
     }

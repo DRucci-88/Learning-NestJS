@@ -30,10 +30,9 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
                     type: this.configService.get<string>('DB_TYPE'),
                     database: this.configService.get<string>('DB_NAME'),
                     autoLoadEntities: true,
-                    synchronize: true,
-                    // JSON.parse(
-                    //     this.configService.get<string>('SYNCHRONIZE'),
-                    // ),
+                    synchronize: JSON.parse(
+                        this.configService.get<string>('SYNCHRONIZE'),
+                    ),
                     migrationsRun: JSON.parse(
                         this.configService.get<string>('MIGRATIONS_RUN'),
                     ),
