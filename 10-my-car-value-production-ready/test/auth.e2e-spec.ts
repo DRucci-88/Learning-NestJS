@@ -17,6 +17,10 @@ describe('Authentication System', () => {
         await app.init();
     });
 
+    afterEach(async () => {
+        await app.close();
+    });
+
     it('signup request', async () => {
         console.log('signup request');
         const fakeUser: CreateUserDto = {
