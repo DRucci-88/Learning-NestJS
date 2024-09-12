@@ -31,11 +31,11 @@ export class ReportService {
     };
 
     changeApproval = async (
-        id: string,
+        id: number,
         dto: ApproveReportDto,
     ): Promise<Report> => {
         const report: Report = await this.reportRepo.findOne({
-            where: { id: Number.parseInt(id) },
+            where: { id: id },
         });
         if (!report) throw new NotFoundException('Report not found');
 

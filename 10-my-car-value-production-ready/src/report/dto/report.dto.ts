@@ -4,7 +4,7 @@ export class ReportDto {
     @Expose()
     id: number;
 
-    @Transform(({ obj }) => obj.user.id)
+    @Transform(({ obj }) => obj.user?.id)
     @Expose()
     userId: string;
 

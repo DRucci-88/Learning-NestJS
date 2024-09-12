@@ -39,8 +39,8 @@ export class ReportController {
 
     @Patch('/:id')
     @UseGuards(AdminGuard)
-    // @Serialize(ReportDto)
-    approvalReport(@Param('id') id: string, @Body() body: ApproveReportDto) {
+    @Serialize(ReportDto)
+    approvalReport(@Param('id') id: number, @Body() body: ApproveReportDto) {
         return this.reportService.changeApproval(id, body);
     }
 
