@@ -10,45 +10,43 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
-    constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {}
 
-    createTypeOrmOptions():
-        | Promise<TypeOrmModuleOptions>
-        | TypeOrmModuleOptions {
-        switch (process.env.NODE_ENV) {
-            case 'development':
-                return {
-                    type: this.configService.get<string>('DB_TYPE'),
-                    database: this.configService.get<string>('DB_NAME'),
-                    autoLoadEntities: true,
-                    synchronize: JSON.parse(
-                        this.configService.get<string>('SYNCHRONIZE'),
-                    ),
-                } as TypeOrmModuleOptions;
-            case 'test':
-                return {
-                    type: this.configService.get<string>('DB_TYPE'),
-                    database: this.configService.get<string>('DB_NAME'),
-                    autoLoadEntities: true,
-                    synchronize: JSON.parse(
-                        this.configService.get<string>('SYNCHRONIZE'),
-                    ),
-                    migrationsRun: JSON.parse(
-                        this.configService.get<string>('MIGRATIONS_RUN'),
-                    ),
-                } as TypeOrmModuleOptions;
-            case 'production':
-                const obj: TypeOrmModuleOptions = {};
-                console.log(obj);
-                return obj;
-            default:
-                break;
-        }
+  createTypeOrmOptions(): Promise<TypeOrmModuleOptions> | TypeOrmModuleOptions {
+    switch (process.env.NODE_ENV) {
+      case 'development':
         return {
-            type: 'sqlite',
-            synchronize: false,
-            database: this.configService.get<string>('DB_NAME'),
-            autoLoadEntities: true,
-        };
+          type: this.configService.get<string>('DB_TYPE'),
+          database: this.configService.get<string>('DB_NAME'),
+          autoLoadEntities: true,
+          synchronize: JSON.parse(
+            this.configService.get<string>('SYNCHRONIZE'),
+          ),
+        } as TypeOrmModuleOptions;
+      case 'test':
+        return {
+          type: this.configService.get<string>('DB_TYPE'),
+          database: this.configService.get<string>('DB_NAME'),
+          autoLoadEntities: true,
+          synchronize: JSON.parse(
+            this.configService.get<string>('SYNCHRONIZE'),
+          ),
+          migrationsRun: JSON.parse(
+            this.configService.get<string>('MIGRATIONS_RUN'),
+          ),
+        } as TypeOrmModuleOptions;
+      case 'production':
+        const obj: TypeOrmModuleOptions = {};
+        console.log(obj);
+        return obj;
+      default:
+        break;
     }
+    return {
+      type: 'sqlite',
+      synchronize: false,
+      database: this.configService.get<string>('DB_NAME'),
+      autoLoadEntities: true,
+    };
+  }
 }

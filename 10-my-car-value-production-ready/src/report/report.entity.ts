@@ -3,33 +3,33 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Report {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ManyToOne(() => User, (user) => user.reports, { eager: true })
-    user: User;
+  @ManyToOne(() => User, (user) => user.reports, { eager: true })
+  user: User;
 
-    @Column({ default: false })
-    approved: boolean;
+  @Column({ default: false })
+  approved: boolean;
 
-    @Column()
-    price: number;
+  @Column()
+  price: number;
 
-    @Column()
-    make: string;
+  @Column()
+  make: string;
 
-    @Column()
-    model: string;
+  @Column()
+  model: string;
 
-    @Column()
-    year: number;
+  @Column()
+  year: number;
 
-    @Column()
-    longitude: number;
+  @Column()
+  longitude: number;
 
-    @Column()
-    latitude: number;
+  @Column()
+  latitude: number;
 
-    @Column()
-    mileage: number;
+  @Column()
+  mileage: number;
 }

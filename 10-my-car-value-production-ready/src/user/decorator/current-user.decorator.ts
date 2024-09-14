@@ -10,14 +10,14 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
  */
 
 export const CurrentUser = createParamDecorator(
-    (
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        data: never,
-        // Wrapper around incoming request
-        // Abstract a websocket, incoming request, and grpc request
-        context: ExecutionContext,
-    ) => {
-        const request = context.switchToHttp().getRequest();
-        return request.currentUser; // current-user.interceptor
-    },
+  (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    data: never,
+    // Wrapper around incoming request
+    // Abstract a websocket, incoming request, and grpc request
+    context: ExecutionContext,
+  ) => {
+    const request = context.switchToHttp().getRequest();
+    return request.currentUser; // current-user.interceptor
+  },
 );

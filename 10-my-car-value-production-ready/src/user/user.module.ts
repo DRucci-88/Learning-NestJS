@@ -7,9 +7,9 @@ import { AuthService } from './auth.service';
 import { CurrentUserMiddleware } from './midleware/current-user.middleware';
 
 @Module({
-    controllers: [UserController],
-    providers: [UserService, AuthService],
-    imports: [TypeOrmModule.forFeature([User])],
+  controllers: [UserController],
+  providers: [UserService, AuthService],
+  imports: [TypeOrmModule.forFeature([User])],
 })
 
 /**
@@ -30,8 +30,8 @@ import { CurrentUserMiddleware } from './midleware/current-user.middleware';
  * Thats why we move from Interceptos into Middleware.
  */
 export class UserModule {
-    // Global Middleware
-    configure(consumer: MiddlewareConsumer) {
-        consumer.apply(CurrentUserMiddleware).forRoutes('*');
-    }
+  // Global Middleware
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(CurrentUserMiddleware).forRoutes('*');
+  }
 }

@@ -5,9 +5,9 @@ import { User } from '../user.entity';
 
 // This is going to update or add an additional property to an existing interface
 declare module 'express-serve-static-core' {
-    interface Request {
-        currentUser?: Partial<User>;
-    }
+  interface Request {
+    currentUser?: Partial<User>;
+  }
 }
 
 /**
@@ -40,15 +40,15 @@ declare module 'express-serve-static-core' {
 
 @Injectable()
 export class CurrentUserMiddleware implements NestMiddleware {
-    constructor(private readonly userService: UserService) {}
-    async use(req: Request, res: Response, next: NextFunction) {
-        // next is a reference to the next middleware that we might have in the chain of middleware
-        const { id } = req.session || {};
+  constructor(private readonly userService: UserService) {}
+  async use(req: Request, res: Response, next: NextFunction) {
+    // next is a reference to the next middleware that we might have in the chain of middleware
+    const { id } = req.session || {};
 
-        if (id) {
-            const user: User = await this.userService.findOne(id);
-            req.currentUser = user;
-        }
-        next();
+    if (id) {
+      const user: User = await this.userService.findOne(id);
+      req.currentUser = user;
     }
+    next();
+  }
 }

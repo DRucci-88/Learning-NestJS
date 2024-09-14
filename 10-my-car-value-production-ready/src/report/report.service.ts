@@ -10,59 +10,59 @@ import { GetEstimateReport } from './dto/get-estimate-report.dto';
 
 @Injectable()
 export class ReportService {
-    constructor(
-        @InjectRepository(Report)
-        private readonly reportRepo: Repository<Report>,
-    ) {}
+  constructor(
+    @InjectRepository(Report)
+    private readonly reportRepo: Repository<Report>,
+  ) {}
 
-    create = (dto: CreateReportDto, user: User): Promise<Report> => {
-        // const report: DeepPartial<Report> = this.reportRepo.create(dto);
+  create = (dto: CreateReportDto, user: User): Promise<Report> => {
+    // const report: DeepPartial<Report> = this.reportRepo.create(dto);
 
-        const report: DeepPartial<Report> = plainToInstance(Report, dto);
-        report.user = user;
-        return this.reportRepo.save(report);
-    };
+    const report: DeepPartial<Report> = plainToInstance(Report, dto);
+    report.user = user;
+    return this.reportRepo.save(report);
+  };
 
-    findByUser = async (user: User): Promise<Report[]> => {
-        const reports = await this.reportRepo.findBy({
-            user: user,
-        });
-        return reports.sort((a, b) => a.id - b.id);
-    };
+  findByUser = async (user: User): Promise<Report[]> => {
+    const reports = await this.reportRepo.findBy({
+      user: user,
+    });
+    return reports.sort((a, b) => a.id - b.id);
+  };
 
-    changeApproval = async (
-        id: number,
-        dto: ApproveReportDto,
-    ): Promise<Report> => {
-        const report: Report = await this.reportRepo.findOne({
-            where: { id: id },
-        });
-        if (!report) throw new NotFoundException('Report not found');
+  changeApproval = async (
+    id: number,
+    dto: ApproveReportDto,
+  ): Promise<Report> => {
+    const report: Report = await this.reportRepo.findOne({
+      where: { id: id },
+    });
+    if (!report) throw new NotFoundException('Report not found');
 
-        report.approved = dto.approved;
-        report.user;
-        return this.reportRepo.save(report);
-    };
+    report.approved = dto.approved;
+    report.user;
+    return this.reportRepo.save(report);
+  };
 
-    public async createEstimate(dto: GetEstimateReport) {
-        return this.reportRepo
-            .createQueryBuilder()
-            .select('AVG(price)', 'price')
-            .where('make = :make', { make: dto.make })
-            .andWhere('model = :model', { model: dto.model })
-            .andWhere('longitude - :longitude BETWEEN -5 AND 5', {
-                longitude: dto.longitude,
-            })
-            .andWhere('latitude - :latitude BETWEEN -5 AND 5', {
-                latitude: dto.latitude,
-            })
-            .andWhere('year - :year BETWEEN -3 AND 3', {
-                year: dto.year,
-            })
-            .andWhere('approved IS TRUE')
-            .orderBy('ABS(mileage - :mileage)', 'DESC')
-            .setParameters({ mileage: dto.mileage })
-            .limit(3)
-            .getRawOne();
-    }
+  public async createEstimate(dto: GetEstimateReport) {
+    return this.reportRepo
+      .createQueryBuilder()
+      .select('AVG(price)', 'price')
+      .where('make = :make', { make: dto.make })
+      .andWhere('model = :model', { model: dto.model })
+      .andWhere('longitude - :longitude BETWEEN -5 AND 5', {
+        longitude: dto.longitude,
+      })
+      .andWhere('latitude - :latitude BETWEEN -5 AND 5', {
+        latitude: dto.latitude,
+      })
+      .andWhere('year - :year BETWEEN -3 AND 3', {
+        year: dto.year,
+      })
+      .andWhere('approved IS TRUE')
+      .orderBy('ABS(mileage - :mileage)', 'DESC')
+      .setParameters({ mileage: dto.mileage })
+      .limit(3)
+      .getRawOne();
+  }
 }

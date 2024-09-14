@@ -1,12 +1,12 @@
 import {
-    Body,
-    Controller,
-    Get,
-    Param,
-    Patch,
-    Post,
-    Query,
-    UseGuards,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
 import { ReportService } from './report.service';
@@ -21,31 +21,31 @@ import { GetEstimateReport } from './dto/get-estimate-report.dto';
 
 @Controller('report')
 export class ReportController {
-    constructor(private readonly reportService: ReportService) {}
+  constructor(private readonly reportService: ReportService) {}
 
-    @Post()
-    @UseGuards(AuthGuard)
-    @Serialize(ReportDto)
-    createReport(@Body() body: CreateReportDto, @CurrentUser() user: User) {
-        return this.reportService.create(body, user);
-    }
+  @Post()
+  @UseGuards(AuthGuard)
+  @Serialize(ReportDto)
+  createReport(@Body() body: CreateReportDto, @CurrentUser() user: User) {
+    return this.reportService.create(body, user);
+  }
 
-    @Get()
-    @UseGuards(AuthGuard)
-    // @Serialize(ReportDto)
-    findByUser(@CurrentUser() user: User) {
-        return this.reportService.findByUser(user);
-    }
+  @Get()
+  @UseGuards(AuthGuard)
+  // @Serialize(ReportDto)
+  findByUser(@CurrentUser() user: User) {
+    return this.reportService.findByUser(user);
+  }
 
-    @Patch('/:id')
-    @UseGuards(AdminGuard)
-    @Serialize(ReportDto)
-    approvalReport(@Param('id') id: number, @Body() body: ApproveReportDto) {
-        return this.reportService.changeApproval(id, body);
-    }
+  @Patch('/:id')
+  @UseGuards(AdminGuard)
+  @Serialize(ReportDto)
+  approvalReport(@Param('id') id: number, @Body() body: ApproveReportDto) {
+    return this.reportService.changeApproval(id, body);
+  }
 
-    @Get('/estimate')
-    getEstimate(@Query() query: GetEstimateReport) {
-        return this.reportService.createEstimate(query);
-    }
+  @Get('/estimate')
+  getEstimate(@Query() query: GetEstimateReport) {
+    return this.reportService.createEstimate(query);
+  }
 }
